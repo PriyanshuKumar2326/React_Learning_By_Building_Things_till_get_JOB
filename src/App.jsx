@@ -1,6 +1,7 @@
 //import Count from "./Counter/Count";
 
-import CardHome from "./use_card_App/CardHome";
+import CheckList from "./Check_List/CheckList";
+//import CardHome from "./use_card_App/CardHome";
 
 
 function App() {
@@ -9,7 +10,8 @@ function App() {
   return (
     <>
      {/* <Count /> */}
-     <CardHome />
+     {/* {<CardHome />} */}
+     <CheckList />
     </>
   )
 }
