@@ -19,7 +19,7 @@ export default function Sidebar() {
   console.log(order);
   return (
     <>
-      <div className="flex gap-10 max-w-[900px] mx-auto w-full flex-1 items-start p-[2rem_1.5rem_4rem]">
+      <div className="mx-auto flex w-full max-w-6xl items-start justify-center gap-10 bg-stone-900 px-6 py-8">
         <div className="flex-[0_0_250px] rounded-sm border bg-[#292524] p-6 flex flex-col gap-7">
           <MenuList
             title="Drink"
