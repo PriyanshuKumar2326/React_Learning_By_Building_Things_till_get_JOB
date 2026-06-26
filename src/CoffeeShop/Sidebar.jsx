@@ -2,23 +2,54 @@ import { useState } from "react";
 import Cup from "./Cup";
 import MenuList from "./MenuList";
 import Card from "./Card";
+import Navbar from "./Navbar";
 
 export default function Sidebar() {
   const [order, setOrder] = useState({
-    drink: "espresso",
-    size: "small",
-    milk: "regular",
+    drink: "",
+    size: "",
+    milk: "",
     extras: [],
+    count: 0,
   });
+
+  const [cart, setCart] = useState([]);
+
   let menu = ["espresso", "latte", "cappuccino", "matcha", "chai"];
   let SizeDrink = ["small", "medium", "large"];
   let Milk = ["regular", "oats", "almond", "soy", "no milk"];
   let Extras = ["extrashot", "vanilla", "caramel", "whipped"];
-  // function chooseDrink(e) {}
 
-  console.log(order);
+  function finalAddToCart() {
+  const compareArrays = (arr1, arr2) => {
+    if (arr1.length !== arr2.length) return false;
+
+    return arr1.every((item, index) => item === arr2[index]);
+  };
+
+  const indexOfOrder = cart.findIndex(
+    (item) =>
+      item.drink === order.drink &&
+      item.size === order.size &&
+      item.milk === order.milk &&
+      compareArrays(item.extras, order.extras)
+  );
+
+  if (indexOfOrder !== -1) {
+    setCart((prev) =>
+      prev.map((item, index) =>
+        index === indexOfOrder
+          ? { ...item, count: item.count + 1 }
+          : item
+      )
+    );
+  } else {
+    setCart((prev) => [...prev, { ...order, count: 1 }]);
+  }
+}
   return (
     <>
+      <Navbar cart={cart} />
       <div className="mx-auto flex w-full max-w-6xl items-start justify-center gap-10 bg-stone-900 px-6 py-8">
         <div className="flex-[0_0_250px] rounded-sm border bg-[#292524] p-6 flex flex-col gap-7">
           <MenuList
@@ -79,7 +110,7 @@ export default function Sidebar() {
         </div>
         <div className="flex flex-col gap-10">
           <Cup order={order} />
-          <Card order={order}/>
+          <Card order={order} finalAddToCart={finalAddToCart} />
         </div>
       </div>
     </>

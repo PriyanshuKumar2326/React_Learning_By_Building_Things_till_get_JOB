@@ -1,4 +1,4 @@
-export default function Navbar() {
+export default function Navbar({cart}) {
   return (
     <header className="w-full border-b border-stone-700 bg-stone-900 shadow-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
@@ -14,8 +14,8 @@ export default function Navbar() {
               </button>
             </li>
             <li>
-              <button className="transition-colors hover:text-amber-400">
-                Order
+              <button  className="transition-colors hover:text-amber-400">
+                {cart.length > 0 ? `order ${cart.length}` : "Order"}
               </button>
             </li>
             <li>

@@ -1,15 +1,12 @@
 import { prices } from "./coffeData";
 
-export default function Card({ order }) {
+export default function Card({ order, finalAddToCart }) {
   const { drink, size, milk, extras } = order;
 
   const drinkPrice = prices[drink];
   const sizePrice = prices[size];
 
-  const extrasPrice = extras.reduce(
-    (total, item) => total + prices[item],
-    0
-  );
+  const extrasPrice = extras.reduce((total, item) => total + prices[item], 0);
 
   const totalPrice = drinkPrice + sizePrice + extrasPrice;
 
@@ -22,12 +19,12 @@ export default function Card({ order }) {
       <div className="space-y-4">
         <div className="flex justify-between">
           <span className="capitalize text-stone-300">{drink}</span>
-          <span>${drinkPrice.toFixed(2)}</span>
+          <span>${drinkPrice?.toFixed(2)}</span>
         </div>
 
         <div className="flex justify-between">
           <span className="capitalize text-stone-300">{size}</span>
-          <span>${sizePrice.toFixed(2)}</span>
+          <span>${sizePrice?.toFixed(2)}</span>
         </div>
 
         <div className="flex justify-between">
@@ -41,9 +38,7 @@ export default function Card({ order }) {
 
             {extras.map((item) => (
               <div key={item} className="flex justify-between">
-                <span className="capitalize text-stone-300">
-                  {item}
-                </span>
+                <span className="capitalize text-stone-300">{item}</span>
                 <span>${prices[item].toFixed(2)}</span>
               </div>
             ))}
@@ -57,6 +52,9 @@ export default function Card({ order }) {
           <span>${totalPrice.toFixed(2)}</span>
         </div>
       </div>
+      <button className="border m-4 py-2 px-6" onClick={finalAddToCart}>
+        Add to Cart
+      </button>
     </div>
   );
 }
